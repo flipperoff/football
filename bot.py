@@ -109,7 +109,8 @@ def offline(message):
 		time2,text2,links2,news_2 = get_lastnews()
 		src1,text1,title1,link1 = get_news(links2[0])
 		if links2[0]!=links[0]:
-			main_src,main_text,main_title,link = src1,text1,title1,link1
+			time,text,links,news_ = get_lastnews()
+			main_src,main_text,main_title,link = get_news(links[0])
 			post(main_src,main_text,main_title)
 		
 @bot.message_handler(commands=['stop'])
