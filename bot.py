@@ -103,7 +103,6 @@ def ofline(message):
 	bot.send_message(message.chat.id, "Offline mod")
 	time,text,links,news_ = get_lastnews()
 	main_src,main_text,main_title,link = get_news(links[0])
-	post(main_src,main_text,main_title)
 	while True:
 		time,text,links,news_ = get_lastnews()
 		if links[0]!=link:
