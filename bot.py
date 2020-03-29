@@ -69,16 +69,20 @@ def get_news(link):
 	if p[0]==title:
 		p[0]=''
 	text ='\n\n'.join(p)
-	return src,text,title
+	return src,text,title,link
 
 
-
+def post(src,text,title):
+	bot.send_photo(chat_id ='@whoscoredchannel',photo = get(str(src)).content,caption = str(title))
+	bot.send_message('@whoscoredchannel',str(text))
 
 
 
 @bot.message_handler(commands=['start'])
 def welcome(message):
-
+	global main_src
+	global main_text
+	global main_title
 	bot.send_photo(message.chat.id, get("https://news.liga.net/images/general/2019/09/25/thumbnail-tw-20190925111433-3882.jpg").content)
 
 	time,text,links,news_ = get_lastnews()
@@ -86,8 +90,29 @@ def welcome(message):
 	markup = types.InlineKeyboardMarkup()
 	item1 = types.InlineKeyboardButton("Новости", callback_data = "news")
 	markup.add(item1)
-
 	bot.send_message(message.chat.id, "hello",reply_markup = markup)
+	main_src,main_text,main_title,link = get_news(links[0])
+	post(main_src,main_text,main_title)
+
+
+@bot.message_handler(commands=['offline'])
+def ofline(message):
+	global main_src
+	global main_text
+	global main_title
+	bot.send_message(message.chat.id, "Offline mod")
+	time,text,links,news_ = get_lastnews()
+	main_src,main_text,main_title,link = get_news(links[0])
+	post(main_src,main_text,main_title)
+	while True:
+		time,text,links,news_ = get_lastnews()
+		if links[0]!=link:
+			main_src,main_text,main_title,link = get_news(links[0])
+			post(main_src,main_text,main_title)
+		
+@bot.message_handler(commands=['stop'])
+def stop(message):
+	pass
 
 @bot.callback_query_handler(func=lambda call:True)
 def callback_inline(call):
@@ -113,7 +138,7 @@ def callback_inline(call):
 		markup.add(item1,item2)
 
 		time,text,links,news_ = get_lastnews()
-		src,text,title = get_news(links[0])
+		src,text,title,link = get_news(links[0])
 		bot.send_photo(call.message.chat.id, get(str(src)).content,caption = str(title))
 		bot.send_message(call.message.chat.id, str(text),reply_markup = markup)
 		main_src = str(src)
@@ -126,7 +151,7 @@ def callback_inline(call):
 		markup.add(item1,item2)
 
 		time,text,links,news_ = get_lastnews()
-		src,text,title = get_news(links[1])
+		src,text,title,link = get_news(links[1])
 		bot.send_photo(call.message.chat.id, get(str(src)).content,caption = str(title))
 		bot.send_message(call.message.chat.id, str(text),reply_markup = markup)		
 		main_src = str(src)
@@ -139,7 +164,7 @@ def callback_inline(call):
 		markup.add(item1,item2)
 
 		time,text,links,news_ = get_lastnews()
-		src,text,title = get_news(links[2])
+		src,text,title,link = get_news(links[2])
 		bot.send_photo(call.message.chat.id, get(str(src)).content,caption = str(title))
 		bot.send_message(call.message.chat.id, str(text),reply_markup = markup)
 		main_src = str(src)
@@ -152,7 +177,7 @@ def callback_inline(call):
 		markup.add(item1,item2)
 
 		time,text,links,news_ = get_lastnews()
-		src,text,title = get_news(links[3])
+		src,text,title,link = get_news(links[3])
 		bot.send_photo(call.message.chat.id, get(str(src)).content,caption = str(title))
 		bot.send_message(call.message.chat.id, str(text),reply_markup = markup)
 		main_src = str(src)
@@ -165,7 +190,7 @@ def callback_inline(call):
 		markup.add(item1,item2)
 
 		time,text,links,news_ = get_lastnews()
-		src,text,title = get_news(links[4])
+		src,text,title,link = get_news(links[4])
 		bot.send_photo(call.message.chat.id, get(str(src)).content,caption = str(title))
 		bot.send_message(call.message.chat.id, str(text),reply_markup = markup) 
 		main_src = str(src)
