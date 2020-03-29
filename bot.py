@@ -106,7 +106,8 @@ def ofline(message):
 	while True:
 		time,text,links,news_ = get_lastnews()
 		if links[0]!=link:
-			main_src,main_text,main_title,link = get_news(links[0])
+			link = links[0]
+			main_src,main_text,main_title,link = get_news(link)
 			post(main_src,main_text,main_title)
 		
 @bot.message_handler(commands=['stop'])
