@@ -180,7 +180,7 @@ def callback_inline(call):
 		bot.delete_message(call.message.chat.id, call.message.message_id)
 	elif call.data == 'post':
 		bot.send_photo(chat_id ='@whoscoredchannel',photo = get(str(main_src)).content,caption = str(main_title))
-		bot.send_message(chat_id ='@whoscoredchannel',str(main_text))
+		bot.send_message('@whoscoredchannel',str(main_text))
 	else:
 		bot.send_message(call.message.chat.id,"not")
 	
