@@ -75,11 +75,11 @@ def get_news(link):
 	return src,text,title,link
 
 
-def post(src,text,title):
-	bot.send_photo(chat_id ='@whoscoredchannel',photo = get(str(src)).content,caption = str(title))
-	bot.send_message('@whoscoredchannel',str(text))
-	time,text,links,news_ = get_lastnews()
-	src,text,title,link = get_news()
+#def post(src,text,title):
+	#bot.send_photo(chat_id ='@whoscoredchannel',photo = get(str(src)).content,caption = str(title))
+#	bot.send_message('@whoscoredchannel',str(text))
+	#time,text,links,news_ = get_lastnews()
+	#src,text,title,link = get_news(links[0])
 
 
 @bot.message_handler(commands=['start'])
