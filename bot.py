@@ -5,7 +5,7 @@ import requests as req
 from itertools import groupby
 from telebot import types
 from requests import get
-import time 
+import time as tm
 
 
 bot = telebot.TeleBot(config.TOKEN)
@@ -109,7 +109,7 @@ def offline(message):
 		src1,text1,title1,link1 = get_news(links[0])
 		bot.send_photo(chat_id ='@whoscoredchannel',photo = get(str(src1)).content,caption = str(title1))
 		bot.send_message('@whoscoredchannel',str(text1))
-		time.sleep(1800)
+		tm.sleep(1800)
 		
 
 @bot.message_handler(commands=['stop'])
