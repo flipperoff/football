@@ -105,16 +105,29 @@ def offline(message):
 	bot.send_message(message.chat.id, "Offline mod")
 	time,text,links,news_ = get_lastnews()
 	src,text,title,link = get_news(links[0])
+	# while True:
+	# 	time1,text1,links1,news_1 = get_lastnews()
+	# 	src1,text1,title1,link1 = get_news(links1[0])
+	# 	bot.send_photo(chat_id ='@whoscoredchannel',photo = get(str(src1)).content,caption = str(title1))
+	# 	try:
+	# 		bot.send_message('@whoscoredchannel',str(text1))
+	# 	except Exception:
+	# 		bor.send_message('@whoscoredchannel',str(link1))
+	# 	tm.sleep(1800)
 	while True:
 		time1,text1,links1,news_1 = get_lastnews()
 		src1,text1,title1,link1 = get_news(links1[0])
-		bot.send_photo(chat_id ='@whoscoredchannel',photo = get(str(src1)).content,caption = str(title1))
-		try:
-			bot.send_message('@whoscoredchannel',str(text1))
-		except Exception:
-			bor.send_message('@whoscoredchannel',str(link1))
-		tm.sleep(1800)
-		
+		if title1==title:
+			bot.send_message(message.chat.id,'same')
+		else:
+			time,text,links,news_ = get_lastnews()
+			src,text,title,link = get_news(links[0])
+			bot.send_photo(chat_id ='@whoscoredchannel',photo = get(str(src1)).content,caption = str(title1))
+			try:
+				bot.send_message('@whoscoredchannel',str(text1))
+			except Exception:
+				bor.send_message('@whoscoredchannel',str(link1))
+		tm.sleep(20)
 
 @bot.message_handler(commands=['stop'])
 def stop(message):
