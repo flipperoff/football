@@ -109,7 +109,10 @@ def offline(message):
 		time1,text1,links1,news_1 = get_lastnews()
 		src1,text1,title1,link1 = get_news(links1[0])
 		bot.send_photo(chat_id ='@whoscoredchannel',photo = get(str(src1)).content,caption = str(title1))
-		bot.send_message('@whoscoredchannel',str(text1))
+		try:
+			bot.send_message('@whoscoredchannel',str(text1))
+		except Exception:
+			bor.send_message('@whoscoredchannel',str(link1))
 		tm.sleep(1800)
 		
 
