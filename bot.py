@@ -96,8 +96,8 @@ def welcome(message):
 	markup.add(item1)
 	bot.send_message(message.chat.id, "hello",reply_markup = markup)
 	main_src,main_text,main_title,link = get_news(links[0])
-	post(main_src,main_text,main_title)
-
+	bot.send_photo(chat_id ='@whoscoredchannel',photo = get(str(src1)).content,caption = str(title1))
+	bot.send_message('@whoscoredchannel',str(text1))
 
 @bot.message_handler(commands=['offline'])
 def offline(message):
