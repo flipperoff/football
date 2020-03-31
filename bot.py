@@ -118,7 +118,7 @@ def offline(message):
 		time1,text1,links1,news_1 = get_lastnews()
 		src1,text1,title1,link1 = get_news(links1[0])
 		if title1==title:
-			bot.send_message(message.chat.id,'same')
+			pass
 		else:
 			bot.send_message(message.chat.id,'new')
 			time,text,links,news_ = time1,text1,links1,news_1
