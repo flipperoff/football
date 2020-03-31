@@ -127,7 +127,7 @@ def offline(message):
 			try:
 				bot.send_message('@whoscoredchannel',str(text1))
 			except Exception:
-				bor.send_message('@whoscoredchannel',str(link1))
+				bot.send_message('@whoscoredchannel',str(link1))
 		tm.sleep(200)
 
 @bot.message_handler(commands=['stop'])
