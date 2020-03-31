@@ -121,14 +121,14 @@ def offline(message):
 			bot.send_message(message.chat.id,'same')
 		else:
 			bot.send_message(message.chat.id,'new')
-			# time,text,links,news_ = get_lastnews()
-			# src,text,title,link = get_news(links[0])
+			time,text,links,news_ = get_lastnews()
+			src,text,title,link = get_news(links[0])
 			# bot.send_photo(chat_id ='@whoscoredchannel',photo = get(str(src1)).content,caption = str(title1))
 			# try:
 			# 	bot.send_message('@whoscoredchannel',str(text1))
 			# except Exception:
 			# 	bor.send_message('@whoscoredchannel',str(link1))
-		tm.sleep(600)
+		tm.sleep(200)
 
 @bot.message_handler(commands=['stop'])
 def stop(message):
