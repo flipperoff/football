@@ -98,7 +98,10 @@ def welcome(message):
 	time1,text1,links1,news_1 = get_lastnews()
 	src1,text1,title1,link1 = get_news(links[0])
 	bot.send_photo(chat_id ='@whoscoredchannel',photo = get(str(src1)).content,caption = str(title1))
-	bot.send_message('@whoscoredchannel',str(text1))
+	try:
+		bot.send_message('@whoscoredchannel',str(text1))
+	except Exception:
+		bot.send_message('@whoscoredchannel',str(link1))
 
 @bot.message_handler(commands=['offline'])
 def offline(message):
@@ -118,7 +121,7 @@ def offline(message):
 		time1,text1,links1,news_1 = get_lastnews()
 		src1,text1,title1,link1 = get_news(links1[0])
 		if title1==title:
-			pass
+			pass	
 		else:
 			bot.send_message(message.chat.id,'new')
 			time,text,links,news_ = time1,text1,links1,news_1
