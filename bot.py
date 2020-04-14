@@ -132,7 +132,7 @@ def offline(message):
 
 @bot.message_handler(commands=['stop'])
 def stop(message):
-	pass
+	exit(0)
 
 @bot.callback_query_handler(func=lambda call:True)
 def callback_inline(call):
