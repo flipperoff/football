@@ -127,7 +127,7 @@ def welcome(message):
 	markup.add(item1)
 	bot.send_message(message.chat.id, "hello",reply_markup = markup)
 	time1,text1,links1,news_1 = get_lastnews()
-	src1,text1,title1,link1 = get_news(links[0])
+	src1,text1,title1 = get_news(links[0])
 	bot.send_photo(chat_id ='@whoscoredchannel',photo = get(str(src1)).content,caption = str(title1))
 	bot.send_message('@whoscoredchannel',str(text1))
 
