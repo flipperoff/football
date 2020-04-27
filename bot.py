@@ -67,12 +67,43 @@ def get_news(link):
 	p1 = news_text.find_all("p")
 	p_cke_markup = news_text.find_all("p",class_ = 'cke-markup')
 	p = [elem for elem in p1 if elem not in p_cke_markup]
+	p_new = []
 	for i in range(len(p)):
-		p[i]=p[i].text
-	if p[0]==title:
-		p[0]=''
-	text ='\n\n'.join(p)
-	return src,text,title,link
+		if ('К слову' in p[i].text) or ('Напомним' in p[i].text):
+			continue
+		p_new.append(p[i].text)
+	if p_new[0]==title:
+		p_new[0]=''
+	text ='\n\n'.join(p_new)
+	return src,text,title
+
+# def get_news(link):
+# 	resp = req.get(link)
+ 
+# 	soup = BeautifulSoup(resp.text, 'lxml')
+
+# 	body = soup.body
+# 	main = body.main
+# 	container = main.find("div",class_ = 'container')
+# 	div_photo = container.find("div",class_ = 'photo')
+# 	image = div_photo.find("img")
+# 	src1 = image.get("src") #-ссылка на фотографию
+# 	src2 = src1.split("?")
+# 	src = src2[0]
+# 	news_text = container.find("div",class_ = "news-text")
+# 	div_title = news_text.find("div",class_ = "title")
+# 	p_lead = div_title.find("p",class_ = "lead")
+# 	title = p_lead.text #-заголовок новости
+
+# 	p1 = news_text.find_all("p")
+# 	p_cke_markup = news_text.find_all("p",class_ = 'cke-markup')
+# 	p = [elem for elem in p1 if elem not in p_cke_markup]
+# 	for i in range(len(p)):
+# 		p[i]=p[i].text
+# 	if p[0]==title:
+# 		p[0]=''
+# 	text ='\n\n'.join(p)
+# 	return src,text,title,link
 
 
 #def post(src,text,title):
@@ -104,7 +135,7 @@ def welcome(message):
 def offline(message):
 	bot.send_message(message.chat.id, "Offline mod")
 	time,text,links,news_ = get_lastnews()
-	src,text,title,link = get_news(links[0])
+	src,text,title = get_news(links[0])
 	# while True:
 	# 	time1,text1,links1,news_1 = get_lastnews()
 	# 	src1,text1,title1,link1 = get_news(links1[0])
@@ -116,18 +147,30 @@ def offline(message):
 	# 	tm.sleep(1800)
 	while True:
 		time1,text1,links1,news_1 = get_lastnews()
-		src1,text1,title1,link1 = get_news(links1[0])
+		src1,text1,title1 = get_news(links1[0])
 		if title1==title:
 			pass
 		else:
 			bot.send_message(message.chat.id,'new')
 			time,text,links,news_ = time1,text1,links1,news_1
 			src,text,title,link = src1,text1,title1,link1
-			bot.send_photo(chat_id ='@whoscoredchannel',photo = get(str(src1)).content,caption = str(title1))
 			try:
-				bot.send_message('@whoscoredchannel',str(text1))
+				bot.send_photo(chat_id ='@whoscoredchannel',photo = get(str(src1)).content,caption = str(title1) + '\n\n' + str(text1))
 			except Exception:
-				pass
+				try:
+					bot.send_photo(chat_id ='@whoscoredchannel',photo = get(str(src1)).content,caption = str(title1))
+					bot.send_message('@whoscoredchannel',str(text1))
+				except Exception:
+					time2,text2,links2,news_2 = get_lastnews()
+					src2,text2,title2 = get_news(links2[1])
+					try:
+						bot.send_photo(chat_id ='@whoscoredchannel',photo = get(str(src2)).content,caption = str(title2) + '\n\n' + str(text2))
+					except Exception:
+						try:
+							bot.send_photo(chat_id ='@whoscoredchannel',photo = get(str(src2)).content,caption = str(title2))
+							bot.send_message('@whoscoredchannel',str(text2))
+						except Exception:
+							pass
 		tm.sleep(3600)
 
 @bot.message_handler(commands=['stop'])
