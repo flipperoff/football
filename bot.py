@@ -155,22 +155,10 @@ def offline(message):
 			time,text,links,news_ = time1,text1,links1,news_1
 			src,text,title,link = src1,text1,title1,link1
 			try:
-				bot.send_photo(chat_id ='@whoscoredchannel',photo = get(str(src1)).content,caption = str(title1) + '\n\n' + str(text1))
+				bot.send_photo(chat_id ='@whoscoredchannel',photo = get(str(src1)).content,caption = str(title1))
+				bot.send_message('@whoscoredchannel',str(text1))
 			except Exception:
-				try:
-					bot.send_photo(chat_id ='@whoscoredchannel',photo = get(str(src1)).content,caption = str(title1))
-					bot.send_message('@whoscoredchannel',str(text1))
-				except Exception:
-					time2,text2,links2,news_2 = get_lastnews()
-					src2,text2,title2 = get_news(links2[1])
-					try:
-						bot.send_photo(chat_id ='@whoscoredchannel',photo = get(str(src2)).content,caption = str(title2) + '\n\n' + str(text2))
-					except Exception:
-						try:
-							bot.send_photo(chat_id ='@whoscoredchannel',photo = get(str(src2)).content,caption = str(title2))
-							bot.send_message('@whoscoredchannel',str(text2))
-						except Exception:
-							pass
+				pass
 		tm.sleep(3600)
 
 @bot.message_handler(commands=['stop'])
