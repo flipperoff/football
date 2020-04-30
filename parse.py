@@ -64,14 +64,14 @@ def get_news(link):
 	p1 = news_text.find_all("p")
 	p_cke_markup = news_text.find_all("p",class_ = 'cke-markup')
 	p = [elem for elem in p1 if elem not in p_cke_markup]
-	p_new = []
-	for i in range(len(p)):
-		if ('К слову' in p[i].text) or ('Напомним' in p[i].text):
-			continue
-		p_new.append(p[i].text)
-	if p_new[0]==title:
-		p_new[0]=''
-	text ='\n\n'.join(p_new)
+	# p_new = []
+	# for i in range(len(p)):
+	# 	if ('К слову' in p[i].text) or ('Напомним' in p[i].text):
+	# 		continue
+	# 	p_new.append(p[i].text)
+	if p[0]==title:
+		p[0]=''
+	text ='\n\n'.join(p)
 	return src,text,title
 
 
